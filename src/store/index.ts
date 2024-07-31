@@ -11,9 +11,6 @@ export class Store<T> {
   getState(): T {
     return this.state;
   }
-  getServerSnapshot(): T {
-    return this.state;
-  }
 
   setState(newState: T | ((prevState: T) => T)): void {
     if (typeof newState !== typeof this.state) {
