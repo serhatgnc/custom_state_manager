@@ -1,0 +1,3 @@
+import { Store } from "./store";
+
+export const countStore = new Store(0);
