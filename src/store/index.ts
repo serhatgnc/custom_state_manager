@@ -30,12 +30,8 @@ export class Store<T> {
   }
 
   subscribe(listener: Listener) {
-    console.log(listener, " arg");
-
     this.listeners.push(listener);
     return () => {
-      console.log(this.listeners.filter((l) => l !== listener));
-
       this.listeners = this.listeners.filter((l) => l !== listener);
     };
   }
