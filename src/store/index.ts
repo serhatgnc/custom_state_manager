@@ -13,16 +13,17 @@ export class Store<T> {
   }
 
   setState(newState: T | ((prevState: T) => T)): void {
-    if (typeof newState !== typeof this.state) {
-      throw new TypeError(
-        `Type mismatch: Expected ${typeof this.state}, got ${typeof newState}`
-      );
+    if (typeof newState === "function") {
+      const updateFn = newState as (prevState: T) => T;
+      this.state = updateFn(this.state);
+    } else {
+      if (typeof newState !== typeof this.state) {
+        throw new TypeError(
+          `Type mismatch: Expected ${typeof this.state}, got ${typeof newState}`
+        );
+      }
+      this.state = newState;
     }
-
-    this.state =
-      typeof newState === "function"
-        ? (newState as (prevState: T) => T)(this.state)
-        : newState;
     this.notifyListeners();
   }
 
@@ -37,7 +38,7 @@ export class Store<T> {
     this.listeners.forEach((listener) => listener());
   }
 
-  getStore(): [() => T, (newState: T) => void] {
+  getStore(): [() => T, (newState: T | ((prevState: T) => T)) => void] {
     return [this.getState.bind(this), this.setState.bind(this)];
   }
 }
