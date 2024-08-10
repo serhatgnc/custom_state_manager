@@ -120,7 +120,7 @@ Each adapter would optimize the usage of the `Store` class for its specific fram
 
 - Add middleware support for logging, persistence, etc.
 - Implement devtools for better debugging
-- Add support for derived states (computed values)
+- ~~Add support for derived states (computed values)~~ :white_check_mark:
 - Create adapters for other frameworks (Vue, Svelte, etc.)
 
 ## Contributing
